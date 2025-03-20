@@ -28,7 +28,7 @@ namespace Cleint
         public string LocalVersion { get; private set; } = "Console";
         private bool _contentLoaded;
         public List<CLientUser> ActiveClients { get; private set; } = new List<CLientUser>();
-        public string SupportedVersion { get; private set; } = "";
+        public string SupportedVersion { get; private set; } = "unknown";
         [DllImport("API.dll", CallingConvention = CallingConvention.Cdecl)]
         private static extern void Initialize();
 
@@ -101,7 +101,7 @@ namespace Cleint
             int cy,
             uint uFlags);
 
-        private static void SetTopMostWindow()
+        private static void Window()
         {
             IntPtr handle = Process.GetCurrentProcess().MainWindowHandle;
             if (handle != IntPtr.Zero)
@@ -193,9 +193,9 @@ namespace Cleint
             }).Start();
         }
 
-        private static void KeepAlive()
+        private static void Real()
         {
-            Thread keepAliveThread = new Thread(() =>
+            Thread Real = new Thread(() =>
             {
                 while (true)
                 {
@@ -204,7 +204,7 @@ namespace Cleint
             })
             { IsBackground = true };
 
-            keepAliveThread.Start();
+            Real.Start();
         }
     }
 }
